@@ -25,7 +25,7 @@ public class PessoaController {
 	private PessoasRepository pessoasRepository;
 	
 	@PostMapping("/pessoas")
-	public Pessoa novaPessoa(@RequestBody @Valid DadosAberturaDto novaPessoa) {
+	public Pessoa novaPessoa(@RequestBody @Valid DadosAberturaDto novaPessoa) throws Exception {
 		return geraPessoa.geraPessoa(novaPessoa);
 	}
 	

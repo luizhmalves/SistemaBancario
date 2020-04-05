@@ -29,7 +29,7 @@ public class GeraPessoa {
 	@Autowired
 	private LimitesRepository limitesRepository;
 
-	public Pessoa geraPessoa(DadosAberturaDto abertura) {
+	public Pessoa geraPessoa(DadosAberturaDto abertura) throws Exception {
 		SecureRandom random = new SecureRandom();
 		if (abertura.getPessoa().getNumDoc().length() == 11) {
 			Pessoa pessoa = new Pessoa();
@@ -43,8 +43,7 @@ public class GeraPessoa {
 
 			return pessoa;
 			
-		}
-		if (abertura.getPessoa().getNumDoc().length() == 14) {
+		} else if (abertura.getPessoa().getNumDoc().length() == 14) {
 			Pessoa pessoa = new Pessoa();
 			String cnpjTemp = abertura.getPessoa().getNumDoc().replace(".", "").replace("-", "").replace("/", "");
 			pessoa.setNome(abertura.getPessoa().getNome());
@@ -56,9 +55,9 @@ public class GeraPessoa {
 			this.geraConta(pessoa, abertura.getIdAgencia());
 
 			return pessoa;
+		} else {
+			throw new Exception("Cpf ou Cnpj inválido!");
 		}
-		return null;
-
 	}
 
 	private void geraConta(Pessoa pessoa, Long idAgencia) {
